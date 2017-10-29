@@ -1,0 +1,54 @@
+# Client Definition
+Client {
+  Name = <%= $fd %>-fd
+  Password = <%= $fd_pass %>
+  Address = <%= $fd %>
+  FDPort = 9102
+  Catalog = MyCatalog
+  File Retention = 30 days
+  Job Retention = 6 months
+  Heartbeat Interval = 60
+}
+
+#
+# Job Definitions
+#
+
+# Daily Job
+Job {
+  Name = <%= $fd %>-daily
+  Type = Backup
+  Level = <%= $daily_backup_type %>
+  Client = <%= $fd %>-fd
+  FileSet = <%= $fileset %>
+  Schedule = WeeklyCycle
+  Storage = <%= $storage_name %>
+  Pool = daily
+  Messages = Standard
+}
+
+# Weekly Job
+Job {
+  Name = <%= $fd %>-weekly
+  Type = Backup
+  Level = <%= $weekly_backup_type %>
+  Client = <%= $fd %>-fd
+  FileSet = <%= $fileset %>
+  Schedule = WeeklyCycle
+  Storage = <%= $storage_name %>
+  Pool = weekly
+  Messages = Standard
+}
+
+# Monthly Job
+Job {
+  Name = <%= $fd %>-monthly
+  Type = Backup
+  Level = <%= $weekly_backup_type %>
+  Client = <%= $fd %>-fd
+  FileSet = <%= $fileset %>
+  Schedule = WeeklyCycle
+  Storage = <%= $storage_name %>
+  Pool = monthly
+  Messages = Standard
+}
